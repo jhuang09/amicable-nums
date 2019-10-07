@@ -73,6 +73,9 @@
         }
 
         function get_amicable() {
+            if (!validate()) {
+                return;
+            }
             document.getElementById("all").style.display = "block";
             first_num = parseInt(document.getElementById("first").value);
             second_num = parseInt(document.getElementById("second").value);
@@ -96,6 +99,13 @@
             }
         }
 
+        function validate() {
+            if (document.getElementById("first").value == "" || document.getElementById("second").value == "") {
+                return false;
+            }
+            return true;
+        }
+
         // console.assert(isFactor(14, 7));
         // console.assert(!isFactor(14, 8));
         // console.assert(isFactor(14, 2));
@@ -114,8 +124,8 @@
     <h1>Amicable Numbers</h1>
     <h2>Enter two numbers and find out if your numbers are amicable!</h2>
     <form>
-        <div><label>First number:</label><input type="text" name="first" id="first" placeholder="1"></div>
-        <div><label>Second number:</label><input type="text" name="second" id="second" placeholder="2"></div>
+        <div><label>First number:</label><input type="text" name="first" id="first" placeholder="1" required></div>
+        <div><label>Second number:</label><input type="text" name="second" id="second" placeholder="2" required></div>
         <input type="button" name="submit" id="submit" value="Submit" onclick="display_nums();get_amicable();">
     </form>
     <div id="all" style="color: #d99a48; background-color: #574e4e; padding:3%;display:none;margin:10px 0px">
