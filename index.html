@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Amicable Numbers</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto&display=swap" rel="stylesheet">
+    <style type="text/css">
+        body {
+            width: 50%;
+        }
+        h1 {
+            color: #15438c;
+            font-family: Roboto;
+        }
+
+        h2 {
+            color: #2aa8a6;
+            font-family: Roboto;
+        }
+
+        label {
+            color: #a62978;
+            font-family: "Open Sans Condensed";
+        }
+
+        form {
+            background-color: #c1dedc;
+            padding: 4%;
+        }
+
+    </style>
+    <script type="text/javascript">
+        function display_nums() {
+            first_num = parseInt(document.getElementById("first").value);
+            second_num = parseInt(document.getElementById("second").value);
+            document.getElementById("display").innerHTML = "You entered: " + first_num + " and " + second_num;
+        }
+
+        function isFactor(num, test) {
+            if (num % test == 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function showFactors(arr) {
+            nums = "";
+            for (i = 0; i < arr.length; i++) {
+                nums += arr[i];
+                (i == arr.length - 1 ? nums : nums += " "); 
+            }
+            return nums;
+
+        }
+
+        function addFactors(arr) {
+            factor_sum = 0;
+            for (i = 0; i < arr.length; i++) {
+                factor_sum += arr[i];
+            }
+            return factor_sum;
+        }
+
+        function getFactors(n) {
+            all_factors = new Array();
+            for (i = 1; i <= Math.floor(n / 2); i++) {
+                if (isFactor(n, i)) {
+                    all_factors.push(i);
+                }
+            }
+            return all_factors;
+        }
+
+        function get_amicable() {
+            document.getElementById("all").style.display = "block";
+            first_num = parseInt(document.getElementById("first").value);
+            second_num = parseInt(document.getElementById("second").value);
+            first_factors = getFactors(first_num);
+            second_factors = getFactors(second_num);
+            f_factor_str = showFactors(first_factors);
+            s_factor_str = showFactors(second_factors);
+
+            document.getElementById("factors").innerHTML = "Factors of " + first_num + " are [" + f_factor_str + "] and factors of " + second_num + " are [" + s_factor_str + "].";
+
+            first_sum = addFactors(first_factors);
+            second_sum = addFactors(second_factors);
+
+            amicable = document.getElementById("amicable");
+
+            if (first_sum == second_num && second_sum == first_num) {
+                amicable.innerHTML = "Your numbers are amicable!";
+            }
+            else {
+                amicable.innerHTML = "You numbers are not amicable! The sum of the factors for " + first_num + " is " + first_sum + " and the sum of the factors for " + second_num + " is " + second_sum;
+            }
+        }
+
+        // console.assert(isFactor(14, 7));
+        // console.assert(!isFactor(14, 8));
+        // console.assert(isFactor(14, 2));
+
+        // console.assert(showFactors([1, 2, 3]) == "1 2 3 ");
+        // console.assert(showFactors([]) == "");
+
+        // console.assert(addFactors([1, 2, 3, 4]) == 10);
+        // console.assert(addFactors([]) == 0);
+
+        // console.assert(showFactors(getFactors(4)) == "1 2 4 ");
+
+    </script>
+</head>
+<body>
+    <h1>Amicable Numbers</h1>
+    <h2>Enter two numbers and find out if your numbers are amicable!</h2>
+    <form>
+        <div><label>First number:</label><input type="text" name="first" id="first" placeholder="1"></div>
+        <div><label>Second number:</label><input type="text" name="second" id="second" placeholder="2"></div>
+        <input type="button" name="submit" id="submit" value="Submit" onclick="display_nums();get_amicable();">
+    </form>
+    <div id="all" style="color: #d99a48; background-color: #574e4e; padding:3%;display:none;margin:10px 0px">
+        <p id="display"></p>
+        <p id="factors"></p>
+        <p id="amicable"></p>
+    </div>
+</body>
+</html>
